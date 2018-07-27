@@ -1,0 +1,47 @@
+
+===============================================================
+1 SQL Database -> Core platform -> user/account
+
+==================================================
+
+1 BlobStorage -> Transcription platform -> lưu file audio
+1 CosmosDb -> Transcription platform -> speaker, pages, transript
+1 Queue for transcribe a file                 - rintranscriberequest
+1 Queue for calculate audio length            - rincalcrequest
+
+==================================================
+
+1 Redis Caches -> Nơi lưu trữ user infomation khi user login 
+devteam.redis.cache.windows.net:6380,password=xntBaq7Gf0ycQCCgS0jR42pUZUwxChTmT8uflwn5Vg8=,ssl=True,abortConnect=False
+
+2 Queue for request/response get user context khi user login 
+    (response require session (standard service bus or higher))
+    
+    loginrequest/ loginresponse
+    
+
+1 Auth0 account {
+    1 app,
+    1 api audience    
+}
+
+==================================================
+
+
+
+1 wildcard domain (2 subdomain: 1 -> core UI, 1 -> Transcription UI)
+
+*.abc.com
+
+==================================================
+
+optional: SSL Certificate nếu muốn dùng https
+
+==================================================
+Note: configure to bug web site published on azure
+
+in the package.json -> remote to plag -p on the CLI (this will prevent webpack to minimize the source code, for more information: https://webpack.js.org/api/cli/#shortcuts)
+
+
+in the webpack.xxx.babel.js -> add one more config:
+   devtool: 'cheap-module-source-map'
